@@ -1,13 +1,17 @@
 package models
 
-type Alert struct {
+import (
+	"sync"
+)
+
+type Decision struct {
 	Scenario string `json:"scenario"`
 	IPAddress string `json:"ip"`
-	Subnet string `json:"subnet"`
-	CreatedAt string `json:"datetime"`
 	Latitude float32 `json:"latitude"`
 	Longitude float32 `json:"longitude"`
-	Country string `json:"countryISO"`
 }
 
-type Alerts []Alert
+var DecisionsMutex struct {
+	Mu sync.Mutex
+	Decisions []Decision
+}

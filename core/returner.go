@@ -6,9 +6,13 @@ import (
 	"lucadomeneghetti/LAPIexporter/models"
 )
 
-func ReturnAlerts(limit int8) (models.Alert, error) {
-	alert := models.Alert{}
-	return alert, nil
+func ReturnAlerts(limit int8) (models.Alerts, error) {
+	alerts, err := QueryAlerts(limit) 
+	if err != nil {
+		return nil, err
+	} else {
+		return alerts, nil
+	}
 }
 
 func ReturnDecisions(limit int8) (models.Decision, error) {
