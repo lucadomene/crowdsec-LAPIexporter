@@ -4,9 +4,9 @@ type Alert struct {
 	Scenario string `json:"scenario"`
 	IPAddress string `json:"ip"`
 	Subnet string `json:"subnet"`
-	CreatedAt string `json:"datetime"`
-	Latitude float32 `json:"latitude"`
-	Longitude float32 `json:"longitude"`
+	DateTime string `json:"datetime"`
+	Latitude float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
 	Country string `json:"countryISO"`
 }
 

@@ -1,13 +1,13 @@
 package core
 
 import (
-	"fmt"
-	"log"
+	// "fmt"
+	// "log"
 	"lucadomeneghetti/LAPIexporter/models"
 )
 
 func ReturnAlerts(limit int8) (models.Alerts, error) {
-	alerts, err := QueryAlerts(limit) 
+	alerts, err := QueryAlerts(limit, 5) 
 	if err != nil {
 		return nil, err
 	} else {

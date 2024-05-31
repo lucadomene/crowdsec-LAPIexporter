@@ -1,10 +1,9 @@
-package core
+package utils
 
 import (
 	"bytes"
 	"encoding/json"
 	"log"
-	"lucadomeneghetti/LAPIexporter/utils"
 	"net/http"
 	"sync"
 	"time"
@@ -33,6 +32,10 @@ func CheckAuth() {
 	}
 }
 
+func GetToken() string {
+	return AuthToken.BearerToken
+}
+
 func authenticate() {
 
 	var credentials struct {
@@ -40,20 +43,20 @@ func authenticate() {
 		Password string `json:"password"`
 	}
 
-	credentials.Machine_id = utils.Config.Authentication.Login
-	credentials.Password = utils.Config.Authentication.Password
+	credentials.Machine_id = Config.Authentication.Login
+	credentials.Password = Config.Authentication.Password
 
 	credentials_json, err := json.Marshal(credentials)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	base_url := utils.Config.Server.Protocol + "://" + utils.Config.Server.Host + ":" + utils.Config.Server.Port
-	req, err := http.NewRequest("POST", base_url + "/v1/watchers/login", bytes.NewBuffer(credentials_json))
+
+	base_url := GetBaseURL()
+	req, err := http.NewRequest("POST", base_url + "/watchers/login", bytes.NewBuffer(credentials_json))
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := http.DefaultClient.Do(req)

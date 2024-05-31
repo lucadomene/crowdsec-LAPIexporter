@@ -15,7 +15,7 @@ func initializeServer() error {
 		return err
 	}
 
-	core.InitializeToken()
+	utils.InitializeToken()
 
 	log.Printf("successfully initialized server")
 	return nil
@@ -38,12 +38,14 @@ func main() {
 			w.WriteHeader(http.StatusBadRequest)
 			json_response.Encode(err)
 			log.Printf("request failed for %v: %v", client, err)
+			return
 		}
 		result, err := core.ReturnAlerts(limit)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json_response.Encode(err)
 			log.Printf("request failed for %v: %v", client, err)
+			return
 		}
 
 		err = json_response.Encode(result)
@@ -51,10 +53,10 @@ func main() {
 			w.WriteHeader(http.StatusInternalServerError)
 			json_response.Encode(err)
 			log.Printf("parsing result failed: %v", err)
+			return
 		} else {
-			w.WriteHeader(http.StatusOK)
-			json_response.Encode(result)
 			log.Printf("successfully served %v", client)
+			return
 		}
 
 	})
@@ -70,12 +72,14 @@ func main() {
 			w.WriteHeader(http.StatusBadRequest)
 			json_response.Encode(err)
 			log.Printf("request failed for %v: %v", client, err)
+			return
 		}
 		result, err := core.ReturnDecisions(limit)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			json_response.Encode(err)
 			log.Printf("request failed for %v: %v", client, err)
+			return
 		}
 
 		err = json_response.Encode(result)
@@ -83,10 +87,10 @@ func main() {
 			w.WriteHeader(http.StatusInternalServerError)
 			json_response.Encode(err)
 			log.Printf("parsing result failed: %v", err)
+			return
 		} else {
-			w.WriteHeader(http.StatusOK)
-			json_response.Encode(result)
 			log.Printf("successfully served %v", client)
+			return
 		}
 
 	})

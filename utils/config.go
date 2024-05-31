@@ -18,6 +18,7 @@ var Config struct {
 		Protocol string `yaml:"protocol"`
 		Host string `yaml:"host"`
 		Port string `yaml:"port"`
+		Version string `yaml:"version"`
 	}
 }
 
@@ -39,4 +40,8 @@ func ImportConfig(path string) error {
 
 	log.Printf("succsessfully imported configuration from %v", path)
 	return nil
+}
+
+func GetBaseURL() string {
+	return Config.Server.Protocol + "://" + Config.Server.Host + ":" + Config.Server.Port + "/" + Config.Server.Version
 }
