@@ -7,7 +7,7 @@ import (
 )
 
 func ReturnAlerts(limit int8) (models.Alerts, error) {
-	alerts, err := QueryAlerts(limit, 5) 
+	alerts, err := QueryAlerts(limit, 5)
 	if err != nil {
 		return nil, err
 	} else {
@@ -15,7 +15,21 @@ func ReturnAlerts(limit int8) (models.Alerts, error) {
 	}
 }
 
-func ReturnDecisions(limit int8) (models.Decision, error) {
-	decision := models.Decision{}
-	return decision, nil
+func ReturnDecisions(limit int8) (models.DecisionArray, error) {
+
+	models.LockDecisions()
+	defer models.UnlockDecisions()
+
+	var startup = (models.GetDecisionsLength() == 0)
+
+	newDecisions, deletedDecisions, err := QueryUpdateDecisions(startup, 5)
+	if err != nil {
+		return nil, err
+	}
+
+	models.AppendDecisions(newDecisions)
+
+	models.DeleteDecisions(deletedDecisions)
+
+	return models.GetDecisions(), nil
 }

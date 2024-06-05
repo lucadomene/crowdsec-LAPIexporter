@@ -12,6 +12,7 @@ var Config struct {
 	Authentication struct {
 		Login string `yaml:"login"`
 		Password string `yaml:"password"`
+		API string `yaml:"api"`
 	} `yaml:"auth"`
 
 	Server struct {
@@ -40,6 +41,10 @@ func ImportConfig(path string) error {
 
 	log.Printf("succsessfully imported configuration from %v", path)
 	return nil
+}
+
+func GetAPI() string {
+	return Config.Authentication.API
 }
 
 func GetBaseURL() string {
