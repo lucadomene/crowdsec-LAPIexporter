@@ -33,10 +33,9 @@ func main() {
 
 		w.Header().Set("Content-Type", "application/json")
 
-		var limit int8
+		var limit int64
 		if r.URL.Query().Has("limit") {
-			limit_64, err := strconv.ParseInt(r.URL.Query().Get("limit"), 10, 8)
-			limit = int8(limit_64)
+			limit, err = strconv.ParseInt(r.URL.Query().Get("limit"), 10, 64)
 			if err != nil {
 				w.WriteHeader(http.StatusBadRequest)
 				json_response.Encode(err)
@@ -74,10 +73,9 @@ func main() {
 
 		w.Header().Set("Content-Type", "application/json")
 
-		var limit int8
+		var limit int64
 		if r.URL.Query().Has("limit") {
-			limit_64, err := strconv.ParseInt(r.URL.Query().Get("limit"), 10, 8)
-			limit = int8(limit_64)
+			limit, err = strconv.ParseInt(r.URL.Query().Get("limit"), 10, 64)
 			if err != nil {
 				w.WriteHeader(http.StatusBadRequest)
 				json_response.Encode(err)

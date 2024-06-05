@@ -6,7 +6,7 @@ import (
 	"lucadomeneghetti/LAPIexporter/models"
 )
 
-func ReturnAlerts(limit int8) (models.Alerts, error) {
+func ReturnAlerts(limit int64) (models.Alerts, error) {
 	alerts, err := QueryAlerts(limit, 5)
 	if err != nil {
 		return nil, err
@@ -15,7 +15,7 @@ func ReturnAlerts(limit int8) (models.Alerts, error) {
 	}
 }
 
-func ReturnDecisions(limit int8) (models.DecisionArray, error) {
+func ReturnDecisions(limit int64) (models.DecisionArray, error) {
 
 	models.LockDecisions()
 	defer models.UnlockDecisions()

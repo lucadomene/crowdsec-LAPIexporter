@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func QueryAlerts(limit int8, retry int) (models.Alerts, error) {
+func QueryAlerts(limit int64, retry int) (models.Alerts, error) {
 
 	utils.CheckAuth()
 	base_url := utils.GetBaseURL()
